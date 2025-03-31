@@ -2,6 +2,8 @@ import React from 'react'
 import './Sidebar.css'
 import { MdDashboard, MdAttachMoney } from "react-icons/md";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { IoSettingsOutline } from "react-icons/io5";
+
 
 
 const Sidebar = () => {
@@ -30,6 +32,9 @@ const Sidebar = () => {
         </div>
 
         <div className="bottom">
+            <div className="setting">
+              <IoSettingsOutline className='icon' /> Setting
+            </div>
         </div>
     </div>
   )
