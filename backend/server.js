@@ -15,6 +15,5 @@ app.use("/api/expense", expenseRouter);
 
 app.listen(PORT, ()=> {
     connectDB();
-    console.log(process.env.MONGO_URI)
     console.log("Server at http://localhost:3000")
 })
