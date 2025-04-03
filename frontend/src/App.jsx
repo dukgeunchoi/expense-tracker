@@ -1,22 +1,40 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar/Sidebar.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import IncomePage from "./pages/IncomePage.jsx";
-import ExpensePage from "./pages/ExpensePage.jsx";
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Login from './pages/Auth/Login';
+import SignUp from './pages/Auth/SignUp';
+import Home from './pages/Dashboard/Home';
+import Income from './pages/Dashboard/Income';
+import Expense from './pages/Dashboard/Expense';
+
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+
 
 function App() {
   return (
-    <>
+    <div>
       <Router>
-        <Sidebar />
         <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/income" element={<IncomePage />} />
-          <Route path="/expense" element={<ExpensePage />} />
+          <Route path="/" element={<Root />} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<SignUp/>} />
+          <Route path="/dashboard" element={<Home/>} />
+          <Route path="/income" element={<Income/>} />
+          <Route path="/expense" element={<Expense/>} />
         </Routes>
       </Router>
-    </>
-  )
+    </div>
+  );
 }
 
 export default App
+
+const Root = () => {
+  // check if user is authenticated
+  const isAuthenticated = localStorage.getItem('token') ? true : false;
+
+  return isAuthenticated ? (
+    <Navigate to="/dashboard" />
+  ) : (
+    <Navigate to="/login" />
+  )
+}
