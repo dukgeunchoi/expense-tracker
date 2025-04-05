@@ -1,13 +1,46 @@
 import React, { use } from 'react'
 import { useState } from 'react';
-import AuthLayout from '../../components/Sidebar/layouts/AuthLayout'
+import AuthLayout from '../../components/layouts/AuthLayout'
 import { useNavigate } from 'react-router-dom';
+import Input from '../../components/inputs/Input';
 
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const handleLogin = async () => {
+    if (email === '' || password === '') {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    // API CALL
+    const res = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.status !== 200) {
+      setError(data.message);
+    } else {
+      localStorage.setItem('token', data.token);
+      navigate('/dashboard');
+    }
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
+  }
 
   const navigate = useNavigate();
   return (
@@ -16,6 +49,10 @@ const Login = () => {
         <h3 className='text-xl font-semibold text-black'>Welcome Back</h3>
         <p className='text-xs text-slate-700 mt-[5px] mb-6'>Please enter you details to log in</p>
 
+        <form onSubmit={() => handleSubmit()} action="">
+          <Input value={email} onChange={(e) => setEmail(e.target.value)} label="Email Address" placeholder="Email" type="text"/>
+          <Input value={password} onChange={(e) => setPassword(e.target.value)} label="Password" placeholder="Password" type="text" />
+        </form>
 
       </div>
     </AuthLayout>

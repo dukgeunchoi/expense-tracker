@@ -1,5 +1,5 @@
 import React from 'react'
-import template from '../../../assets/artie.png'
+import template from '../../assets/artie.png'
 import { LuTrendingUpDown } from 'react-icons/lu'
 const AuthLayout = ({children}) => {
   return (
