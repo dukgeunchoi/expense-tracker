@@ -1,4 +1,4 @@
-import User from "../models/auth";
+import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 
 // generate JWT token
@@ -50,7 +50,7 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user || !(await user.comparePassword(password))) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Password is incorrect" });
     }
 
     res.status(200).json({
@@ -73,30 +73,6 @@ export const getUserInfo = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: "Error fetching user info" });
-  }
-};
-
-// Middleware to protect routes
-export const protect = (req, res, next) => {
-  let token;
-
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
-
-  if (!token) {
-    return res.status(401).json({ message: "Not authorized" });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(401).json({ message: "Not authorized" });
   }
 };
 
