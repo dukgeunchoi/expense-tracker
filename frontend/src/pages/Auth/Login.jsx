@@ -3,7 +3,7 @@ import { useState } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/inputs/Input";
-import { validateEmail, validatePassword } from "../../utils/helper";
+import { validateEmail } from "../../utils/helper";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,10 +17,8 @@ const Login = () => {
       setError("Please enter a valid email address");
       return;
     }
-    if (!validatePassword(password)) {
-      setError(
-        "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-      );
+    if (!password) {
+      setError("Please enter your password");
       return;
     }
 
