@@ -1,11 +1,17 @@
 import { Router } from "express";
-import { getIncome, addIncome, deleteIncome, updateIncome } from "../controllers/income.js";
+import {
+  getIncome,
+  addIncome,
+  deleteIncome,
+  updateIncome,
+} from "../controllers/income.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const incomeRouter = Router();
 
-incomeRouter.get("/", getIncome);
-incomeRouter.post("/", addIncome);
-incomeRouter.delete("/:id", deleteIncome);
-incomeRouter.put("/:id", updateIncome);
+incomeRouter.get("/", protect, getIncome);
+incomeRouter.post("/", protect, addIncome);
+incomeRouter.delete("/:id", protect, deleteIncome);
+incomeRouter.put("/:id", protect, updateIncome);
 
 export default incomeRouter;
