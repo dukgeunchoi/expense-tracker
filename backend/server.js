@@ -5,6 +5,11 @@ import { connectDB } from "./configs/mongodb.js";
 import authRouter from "./routes/auth.js";
 import incomeRouter from "./routes/income.js";
 import expenseRouter from "./routes/expense.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
@@ -21,6 +26,9 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 app.use("/api/auth", authRouter);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use("/api/income", incomeRouter);
 app.use("/api/expense", expenseRouter);
 
