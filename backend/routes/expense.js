@@ -1,11 +1,19 @@
 import { Router } from "express";
-import { getExpense, addExpense, deleteExpense, updateExpense } from "../controllers/expense.js";
+import {
+  getExpense,
+  addExpense,
+  deleteExpense,
+  updateExpense,
+  downloadExpenseExcel,
+} from "../controllers/expense.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const expenseRouter = Router();
 
-expenseRouter.get("/", getExpense);
-expenseRouter.post("/", addExpense);
-expenseRouter.delete("/:id", deleteExpense);
-expenseRouter.put("/:id", updateExpense);
+expenseRouter.get("/", protect, getExpense);
+expenseRouter.post("/", protect, addExpense);
+expenseRouter.delete("/:id", protect, deleteExpense);
+expenseRouter.put("/:id", protect, updateExpense);
+expenseRouter.get("/download", protect, downloadExpenseExcel);
 
 export default expenseRouter;
