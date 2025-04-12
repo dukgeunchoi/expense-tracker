@@ -11,9 +11,9 @@ import { protect } from "../middleware/authMiddleware.js";
 const incomeRouter = Router();
 
 incomeRouter.get("/", protect, getIncome);
-incomeRouter.post("/", protect, addIncome);
-incomeRouter.delete("/:id", protect, deleteIncome);
-incomeRouter.put("/:id", protect, updateIncome);
+incomeRouter.post("/add", protect, addIncome);
+incomeRouter.delete("/delete/:id", protect, deleteIncome);
+incomeRouter.put("/update/:id", protect, updateIncome);
 incomeRouter.get("/download", protect, downloadIncomeExcel);
 
 export default incomeRouter;

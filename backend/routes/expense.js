@@ -11,9 +11,9 @@ import { protect } from "../middleware/authMiddleware.js";
 const expenseRouter = Router();
 
 expenseRouter.get("/", protect, getExpense);
-expenseRouter.post("/", protect, addExpense);
-expenseRouter.delete("/:id", protect, deleteExpense);
-expenseRouter.put("/:id", protect, updateExpense);
+expenseRouter.post("/add", protect, addExpense);
+expenseRouter.delete("/delete/:id", protect, deleteExpense);
+expenseRouter.put("/update/:id", protect, updateExpense);
 expenseRouter.get("/download", protect, downloadExpenseExcel);
 
 export default expenseRouter;

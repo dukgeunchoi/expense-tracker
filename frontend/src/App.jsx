@@ -5,6 +5,8 @@ import SignUp from "./pages/Auth/SignUp";
 import Home from "./pages/Dashboard/Home";
 import Income from "./pages/Dashboard/Income";
 import Expense from "./pages/Dashboard/Expense";
+import ProtectedRoute from "./components/protect/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
 
 import {
   BrowserRouter as Router,
@@ -15,18 +17,23 @@ import {
 
 function App() {
   return (
-    <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Root />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/dashboard" element={<Home />} />
-          <Route path="/income" element={<Income />} />
-          <Route path="/expense" element={<Expense />} />
-        </Routes>
-      </Router>
-    </div>
+    <AuthProvider>
+      <div>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Root />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Home />} />
+              <Route path="/income" element={<Income />} />
+              <Route path="/expense" element={<Expense />} />
+            </Route>
+          </Routes>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 
