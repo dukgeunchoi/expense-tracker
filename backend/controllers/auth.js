@@ -66,96 +66,58 @@ export const login = async (req, res) => {
 // Get user info
 export const getUserInfo = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: "Error fetching user info" });
+    console.log(error);
   }
 };
 
-export const protect = (req, res, next) => {
-  let token;
+// // Reset password
+// export const resetPassword = async (req, res) => {
+//   const { email, newPassword } = req.body;
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
+//   if (!email || !newPassword) {
+//     return res.status(400).json({ message: "All fields are required" });
+//   }
 
-  if (!token) {
-    return res.status(401).json({ message: "Not authorized" });
-  }
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(401).json({ message: "Not authorized" });
-  }
-};
+//     user.password = newPassword;
+//     await user.save();
+//     res.status(200).json({ message: "Password reset successfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Error resetting password" });
+//   }
+// };
 
-// Logout user
-export const logout = (req, res) => {
-  res.clearCookie("token");
-  res.status(200).json({ message: "Logged out successfully" });
-};
+// // Update user profile
+// export const updateProfile = async (req, res) => {
+//   const { fullName, email, profileImageUrl } = req.body;
 
-// Reset password
-export const resetPassword = async (req, res) => {
-  const { email, newPassword } = req.body;
+//   if (!fullName || !email) {
+//     return res.status(400).json({ message: "All fields are required" });
+//   }
 
-  if (!email || !newPassword) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    user.password = newPassword;
-    await user.save();
-    res.status(200).json({ message: "Password reset successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error resetting password" });
-  }
-};
-
-// Update user profile
-export const updateProfile = async (req, res) => {
-  const { fullName, email, profileImageUrl } = req.body;
-
-  if (!fullName || !email) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.user.id,
-      { fullName, email, profileImageUrl },
-      { new: true }
-    );
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating profile" });
-  }
-};
-
-// Delete user account
-export const deleteAccount = async (req, res) => {
-  try {
-    await User.findByIdAndDelete(req.user.id);
-    res.status(200).json({ message: "Account deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting account" });
-  }
-};
+//   try {
+//     const user = await User.findByIdAndUpdate(
+//       req.user.id,
+//       { fullName, email, profileImageUrl },
+//       { new: true }
+//     );
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+//     res.status(200).json(user);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error updating profile" });
+//   }
+// };
