@@ -17,7 +17,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const { login } = useContext(AuthContext);
+  const { updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -59,7 +59,7 @@ const SignUp = () => {
       });
       const { token, newUser } = response.data;
       if (token) {
-        login(token, newUser);
+        updateUser(token, newUser);
         navigate("/dashboard");
       }
     } catch (error) {

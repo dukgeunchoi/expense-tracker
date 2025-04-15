@@ -6,6 +6,9 @@ export const API_PATHS = {
     REGISTER: "/api/auth/signup",
     GET_USER_INFO: "/api/auth/info",
   },
+  DASHBOARD: {
+    GET_DATA: "/api/dashboard",
+  },
   INCOME: {
     GET_INCOMES: "/api/income",
     ADD_INCOME: "/api/income/add",

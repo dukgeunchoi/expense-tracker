@@ -13,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const { login } = useContext(AuthContext);
+  const { updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -39,7 +39,8 @@ const Login = () => {
       });
       const { token, user } = response.data;
       if (token) {
-        login(token, user);
+        localStorage.setItem("token", token);
+        updateUser(user);
         navigate("/dashboard");
       }
     } catch (error) {
