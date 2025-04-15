@@ -9,3 +9,13 @@ export const validatePassword = (password) => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return re.test(password);
 };
+
+export const getInitials = (name) => {
+  if (!name) return "";
+  const names = name.split(" ");
+  if (names.length === 1) return names[0].charAt(0).toUpperCase();
+  return (
+    names[0].charAt(0).toUpperCase() +
+    names[names.length - 1].charAt(0).toUpperCase()
+  );
+};
