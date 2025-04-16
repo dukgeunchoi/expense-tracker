@@ -19,3 +19,16 @@ export const getInitials = (name) => {
     names[names.length - 1].charAt(0).toUpperCase()
   );
 };
+
+export const addThousandSeparator = (num) => {
+  if (num === null || num === undefined) return "";
+
+  const [integerPart, decimalPart] = num.toString().split(".");
+  const formattedIntegerPart = integerPart.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    ","
+  );
+  return decimalPart
+    ? `${formattedIntegerPart}.${decimalPart}`
+    : formattedIntegerPart;
+};
