@@ -10,6 +10,9 @@ import { IoMdCard } from "react-icons/io";
 import { addThousandSeparator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
+import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions";
+import IncomeTransactions from "../../components/Dashboard/IncomeTransactions";
+import IncomeGraph from "../../components/Dashboard/IncomeGraph";
 
 const Home = () => {
   useUserAuth();
@@ -25,7 +28,6 @@ const Home = () => {
     setLoading(true);
 
     try {
-      console.log("HELLO");
       const response = await axiosInstance.get(
         `${API_PATHS.DASHBOARD.GET_DATA}`
       );
@@ -59,7 +61,7 @@ const Home = () => {
             icon={<LuHandCoins />}
             label="Total Income"
             value={addThousandSeparator(dashboardData?.totalIncome || 0)}
-            colour="bg-orange-500"
+            colour="bg-green-500"
           />
           <InfoCard
             icon={<LuWalletMinimal />}
@@ -75,9 +77,25 @@ const Home = () => {
           />
 
           <FinanceOverview
+            transactions={dashboardData?.recentTransactions || []}
+          />
+
+          <IncomeTransactions
+            transactions={
+              dashboardData?.last60DaysIncomeTransactions?.transactions || []
+            }
+            onSeeMore={() => navigate("/income")}
+          />
+
+          <IncomeGraph
             totalBalance={dashboardData?.totalBalance || 0}
             totalIncome={dashboardData?.totalIncome || 0}
             totalExpense={dashboardData?.totalExpense || 0}
+          />
+
+          <ExpenseTransactions
+            transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+            onSeeMore={() => navigate("/expense")}
           />
         </div>
       </div>
