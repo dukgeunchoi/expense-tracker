@@ -1,54 +1,72 @@
-import React from "react";
+import React, { act } from "react";
 import {
   BarChart,
   Bar,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Cell,
 } from "recharts";
-import CustomDashboardToolTip from "./CustomDashboardToolTip";
 
 const CustomBarChart = ({ data }) => {
-  const keys = Array.from(
-    new Set(
-      data.flatMap((entry) => Object.keys(entry).filter((k) => k !== "name"))
-    )
-  );
+  //alternating colour
+  const getBarColour = (index) => {
+    return index % 2 === 0 ? "#875cf5" : "#cfbefb";
+  };
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300">
+          <p className="text-xs font-semibold text-purple-800 mb-1">
+            {payload[0].payload.category}
+          </p>
+          <p className="text-sm text-gray-600">
+            Amount:{" "}
+            <span className="text-sm font-medium text-gray-900">
+              ${payload[0].payload.amount}
+            </span>
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data}>
-        <XAxis dataKey="name" interval={0} padding={{ left: 80, right: 80 }} />
-        <YAxis />
-        <Tooltip content={<CustomDashboardToolTip />} />
-        {keys.map((key, idx) => (
+    <div className="bg-white mt-6">
+      <ResponsiveContainer width={"100%"} height={300}>
+        <BarChart
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid stroke="none" />
+          <XAxis dataKey="month" tick={{ fontSize: 12, fill: "#555" }} />
+          <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
+          <Tooltip content={CustomTooltip} />
           <Bar
-            key={key}
-            dataKey={key}
-            stackId={
-              data.find((d) => d[key])?.name === "Income" ? "income" : "expense"
-            }
-            fill={getColor(idx)}
-          />
-        ))}
-      </BarChart>
-    </ResponsiveContainer>
+            dataKey="amount"
+            fill="#FF8042"
+            radius={[10, 10, 0, 0]}
+            activeDot={{ r: 8, fill: "yellow" }}
+            activeStyle={{ fill: "green" }}
+          >
+            {data.map((entry, index) => (
+              <Cell key={index} fill={getBarColour(index)} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
-
-const COLORS = [
-  "#4ade80",
-  "#22d3ee",
-  "#a78bfa",
-  "#f87171",
-  "#facc15",
-  "#60a5fa",
-  "#fb923c",
-  "#34d399",
-];
-
-const getColor = (index) => COLORS[index % COLORS.length];
 
 export default CustomBarChart;

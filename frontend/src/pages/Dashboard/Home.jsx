@@ -13,6 +13,8 @@ import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions";
 import IncomeTransactions from "../../components/Dashboard/IncomeTransactions";
 import IncomeGraph from "../../components/Dashboard/IncomeGraph";
+import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
+import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
 
 const Home = () => {
   useUserAuth();
@@ -77,7 +79,9 @@ const Home = () => {
           />
 
           <FinanceOverview
-            transactions={dashboardData?.recentTransactions || []}
+            totalBalance={dashboardData?.totalBalance || 0}
+            totalIncome={dashboardData?.totalIncome || 0}
+            totalExpense={dashboardData?.totalExpense || 0}
           />
 
           <IncomeTransactions
@@ -87,15 +91,25 @@ const Home = () => {
             onSeeMore={() => navigate("/income")}
           />
 
-          <IncomeGraph
+          {/* <IncomeGraph
             totalBalance={dashboardData?.totalBalance || 0}
             totalIncome={dashboardData?.totalIncome || 0}
             totalExpense={dashboardData?.totalExpense || 0}
+          /> */}
+          <RecentIncomeWithChart
+            data={
+              dashboardData?.last60DaysIncomeTransactions?.transactions || []
+            }
+            totalIncome={dashboardData?.totalIncome || 0}
           />
 
           <ExpenseTransactions
             transactions={dashboardData?.last30DaysExpenses?.transactions || []}
             onSeeMore={() => navigate("/expense")}
+          />
+
+          <Last30DaysExpenses
+            data={dashboardData?.last30DaysExpenses?.transactions || []}
           />
         </div>
       </div>
