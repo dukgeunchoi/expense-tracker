@@ -1,7 +1,6 @@
 import React from "react";
 
 const CustomDashboardToolTip = ({ active, payload, coordinate }) => {
-  console.log("CustomDashboardToolTip", { active, payload });
   if (active && payload && payload.length > 0) {
     // Find the segment that's being hovered
     // We can identify the active item by checking which one has the highest y-coordinate value
