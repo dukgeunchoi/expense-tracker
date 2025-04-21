@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
+import DashboardLayout from "../../components/layouts/DashboardLayout";
+import { useUserAuth } from "../../hooks/useUserAuth";
 
-const ExpensePage = () => {
+const Expense = () => {
+  useUserAuth();
+
+  const [expenseData, setExpenseData] = useState([]);
+  const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState({
+    show: false,
+    data: null,
+  });
   return (
-    <div>ExpensePage</div>
-  )
-}
+    <DashboardLayout activeMenu="Expense">
+      <div className="my-5 mx-auto">
+        <div className="grid grid-cols-1 gap-6"></div>
+      </div>
+    </DashboardLayout>
+  );
+};
 
-export default ExpensePage
+export default Expense;
