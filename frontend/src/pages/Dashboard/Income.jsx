@@ -90,8 +90,6 @@ const Income = () => {
     }
   };
 
-  const handleDownloadIncomeDetails = async () => {};
-
   useEffect(() => {
     fetchIncomeData();
     return () => {};
@@ -105,13 +103,12 @@ const Income = () => {
             <IncomeOverview
               transactions={incomeData}
               onAddIncome={() => setOpenAddIncomeModal(true)}
-            ></IncomeOverview>
+            />
           </div>
 
           <IncomeList
             transactions={incomeData}
             onDelete={(id) => setOpenDeleteAlert({ show: true, data: id })}
-            onDownload={handleDownloadIncomeDetails}
           />
         </div>
 

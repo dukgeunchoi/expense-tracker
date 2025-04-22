@@ -36,6 +36,7 @@ export const addThousandSeparator = (num) => {
 };
 
 export const prepareExpenseBarChartData = (data) => {
+  if (!Array.isArray(data)) return [];
   const chartData = data.map((item) => ({
     category: item.category,
     amount: item.amount,
@@ -45,6 +46,7 @@ export const prepareExpenseBarChartData = (data) => {
 };
 
 export const prepareIncomeBarChartData = (data) => {
+  if (!Array.isArray(data)) return [];
   const sortedData = [...data].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );
@@ -59,6 +61,7 @@ export const prepareIncomeBarChartData = (data) => {
 };
 
 export const prepareExpenseLineChartData = (data) => {
+  if (!Array.isArray(data)) return [];
   const sortedData = [...data].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );

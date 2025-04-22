@@ -26,11 +26,11 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
 
-            {/* <Route element={<ProtectedRoute />}> */}
-            <Route path="/dashboard" element={<Home />} />
-            <Route path="/income" element={<Income />} />
-            <Route path="/expense" element={<Expense />} />
-            {/* </Route> */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Home />} />
+              <Route path="/income" element={<Income />} />
+              <Route path="/expense" element={<Expense />} />
+            </Route>
           </Routes>
         </Router>
       </div>
