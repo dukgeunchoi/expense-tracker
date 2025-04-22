@@ -64,24 +64,3 @@ export const updateExpense = async (req, res) => {
     res.status(500).json({ message: "Error updating expense" });
   }
 };
-
-export const downloadExpenseExcel = async (req, res) => {
-  const userId = req.userId;
-  try {
-    const expenseData = await Expense.find({ userId }).sort({ date: -1 });
-    const data = expenseData.map((expense) => ({
-      amount: expense.amount,
-      category: expense.category,
-      date: expense.date.toISOString().split("T")[0],
-    }));
-
-    const wb = xlsx.utils.book_new();
-    const ws = xlsx.utils.json_to_sheet(data);
-    xlsx.utils.book_append_sheet(wb, ws, "Expense");
-    xlsx.writeFile(wb, "expense.xlsx");
-    res.download("expense.xlsx");
-    res.status(200).json({ message: "Excel file created successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error downloading expense data" });
-  }
-};
