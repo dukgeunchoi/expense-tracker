@@ -5,7 +5,6 @@ const RecentIncomeWithChart = ({ data, totalIncome }) => {
   const [chartData, setChartData] = useState([]);
 
   const COLOURS = ["#875CF5", "#FA2C37", "#FF6900", "#4f39f6"];
-  //   const COLOURS = ["red", "blue", "green", "yellow"];
 
   const prepareChartData = () => {
     const result = data?.map((item) => ({
@@ -13,7 +12,17 @@ const RecentIncomeWithChart = ({ data, totalIncome }) => {
       amount: item?.amount,
     }));
 
-    setChartData(result);
+    const grouped = result.reduce((acc, curr) => {
+      const found = acc.find((item) => item.name === curr.name);
+      if (found) {
+        found.amount += curr.amount;
+      } else {
+        acc.push({ ...curr });
+      }
+      return acc;
+    }, []);
+
+    setChartData(grouped);
   };
 
   useEffect(() => {
