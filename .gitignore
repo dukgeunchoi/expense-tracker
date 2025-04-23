@@ -25,9 +25,6 @@ dist-ssr/
 frontend/.env
 backend/.env
 
-# Uploads and assets
-backend/uploads/
-frontend/src/assets/
 
 # Editor directories and files
 .vscode/*
