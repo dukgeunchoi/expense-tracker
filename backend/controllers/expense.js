@@ -2,8 +2,9 @@ import Expense from "../models/expense.js";
 import xlsx from "xlsx";
 
 export const getExpense = async (req, res) => {
+  const userId = req.userId;
   try {
-    const expense = await Expense.find();
+    const expense = await Expense.find({ userId });
     res.status(200).json(expense);
   } catch (error) {
     res.status(500).json({ message: "Error fetching expense data" });
