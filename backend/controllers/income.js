@@ -2,8 +2,9 @@ import Income from "../models/income.js";
 import xlsx from "xlsx";
 
 export const getIncome = async (req, res) => {
+  const userId = req.userId;
   try {
-    const income = await Income.find();
+    const income = await Income.find({ userId });
     res.status(200).json(income);
   } catch (error) {
     res.status(500).json({ message: "Error fetching income data" });
