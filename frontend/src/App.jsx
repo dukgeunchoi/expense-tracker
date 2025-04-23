@@ -15,6 +15,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import Profile from "./pages/Dashboard/Profile";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/dashboard" element={<Home />} />
               <Route path="/income" element={<Income />} />
               <Route path="/expense" element={<Expense />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </Router>

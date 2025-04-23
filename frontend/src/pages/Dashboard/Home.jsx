@@ -91,11 +91,6 @@ const Home = () => {
             onSeeMore={() => navigate("/income")}
           />
 
-          {/* <IncomeGraph
-            totalBalance={dashboardData?.totalBalance || 0}
-            totalIncome={dashboardData?.totalIncome || 0}
-            totalExpense={dashboardData?.totalExpense || 0}
-          /> */}
           <RecentIncomeWithChart
             data={
               dashboardData?.last60DaysIncomeTransactions?.transactions || []
