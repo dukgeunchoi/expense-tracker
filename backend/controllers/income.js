@@ -71,24 +71,3 @@ export const updateIncome = async (req, res) => {
     res.status(500).json({ message: "Error updating income" });
   }
 };
-
-export const downloadIncomeExcel = async (req, res) => {
-  const userId = req.userId;
-  try {
-    const incomeData = await Income.find({ userId }).sort({ date: -1 });
-    const data = incomeData.map((income) => ({
-      amount: income.amount,
-      source: income.source,
-      date: income.date.toISOString().split("T")[0],
-    }));
-
-    const wb = xlsx.utils.book_new();
-    const ws = xlsx.utils.json_to_sheet(data);
-    xlsx.utils.book_append_sheet(wb, ws, "Income");
-    xlsx.writeFile(wb, "income.xlsx");
-    res.download("income.xlsx");
-    res.status(200).json({ message: "Excel file created successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error downloading income data" });
-  }
-};

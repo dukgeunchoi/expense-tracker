@@ -77,47 +77,58 @@ export const getUserInfo = async (req, res) => {
   }
 };
 
-// // Reset password
-// export const resetPassword = async (req, res) => {
-//   const { email, newPassword } = req.body;
+// Update user profile
+export const updateUserProfile = async (req, res) => {
+  const { fullName, profileImageUrl } = req.body;
 
-//   if (!email || !newPassword) {
-//     return res.status(400).json({ message: "All fields are required" });
-//   }
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-//   try {
-//     const user = await User.findOne({ email });
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
+    if (fullName) user.fullName = fullName;
+    if (profileImageUrl) user.profileImageUrl = profileImageUrl;
 
-//     user.password = newPassword;
-//     await user.save();
-//     res.status(200).json({ message: "Password reset successfully" });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error resetting password" });
-//   }
-// };
+    await user.save();
 
-// // Update user profile
-// export const updateProfile = async (req, res) => {
-//   const { fullName, email, profileImageUrl } = req.body;
+    res.status(200).json({
+      message: "Profile updated",
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        profileImageUrl: user.profileImageUrl,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+};
 
-//   if (!fullName || !email) {
-//     return res.status(400).json({ message: "All fields are required" });
-//   }
+// Change password
+export const changePassword = async (req, res) => {
+  const { password } = req.body;
 
-//   try {
-//     const user = await User.findByIdAndUpdate(
-//       req.user.id,
-//       { fullName, email, profileImageUrl },
-//       { new: true }
-//     );
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     res.status(200).json(user);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating profile" });
-//   }
-// };
+  if (!password) {
+    return res.status(400).json({ message: "Password required" });
+  }
+
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (user.password === password) {
+      return res.status(400).json({
+        message: "New password cannot be the same as the old password",
+      });
+    }
+
+    user.password = password;
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res.status(500).json({ message: "Failed to change password" });
+  }
+};
