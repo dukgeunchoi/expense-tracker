@@ -9,7 +9,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dashboardRouter from "./routes/dashboard.js";
 import healthRouter from "./routes/health.js";
-import { startHealthCheckCron } from "./services/healthCheck.js";
+import { startCron } from "./services/healthCheck.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
