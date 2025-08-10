@@ -39,6 +39,5 @@ app.listen(PORT, () => {
   connectDB();
   console.log("Server at http://localhost:3000");
 
-  // Start the health check cron job
-  startHealthCheckCron(process.env.BACKEND_URL);
+  startCron(process.env.BACKEND_URL);
 });
