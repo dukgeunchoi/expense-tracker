@@ -8,6 +8,8 @@ import expenseRouter from "./routes/expense.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import dashboardRouter from "./routes/dashboard.js";
+import healthRouter from "./routes/health.js";
+import { startHealthCheckCron } from "./services/healthCheck.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,21 +33,12 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/income", incomeRouter);
 app.use("/api/expense", expenseRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/health", healthRouter);
 
 app.listen(PORT, () => {
   connectDB();
   console.log("Server at http://localhost:3000");
+
+  // Start the health check cron job
+  startHealthCheckCron(process.env.BACKEND_URL);
 });
-
-// const startServer = async () => {
-//   try {
-//     await connectDB();
-//     app.listen(PORT, () => {
-//       console.log(`Server running at http://localhost:${PORT}`);
-//     });
-//   } catch (error) {
-//     console.error("Failed to start server:", error);
-//   }
-// };
-
-// startServer();
