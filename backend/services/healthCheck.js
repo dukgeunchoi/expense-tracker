@@ -1,7 +1,7 @@
 import cron from "cron";
 import axios from "axios";
 
-export const startHealthCheckCron = (backendUrl) => {
+export const startCron = (backendUrl) => {
   const healthCheckJob = new cron.CronJob("*/14 * * * *", async () => {
     try {
       const response = await axios.get(`${backendUrl}/api/health`);
