@@ -1,7 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-export const baseUrl = process.env.BASE_URL;
+export const baseUrl = "https://expense-tracker-backend-o0j5.onrender.com";
 
 export const API_PATHS = {
   AUTH: {
