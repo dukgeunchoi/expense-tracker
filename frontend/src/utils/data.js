@@ -1,28 +1,28 @@
 import {
-  LuLayoutDashboard,
-  LuHandCoins,
-  LuWalletMinimal,
-  LuLogOut,
-} from "react-icons/lu";
+  LayoutDashboard,
+  HandCoins,
+  WalletMinimal,
+  LogOut,
+} from "lucide-react";
 import { CgProfile } from "react-icons/cg";
 
 export const SIDE_MENU_DATA = [
   {
     id: "01",
     label: "Dashboard",
-    icon: LuLayoutDashboard,
+    icon: LayoutDashboard,
     path: "/dashboard",
   },
   {
     id: "02",
     label: "Income",
-    icon: LuWalletMinimal,
+    icon: WalletMinimal,
     path: "/income",
   },
   {
     id: "03",
     label: "Expense",
-    icon: LuHandCoins,
+    icon: HandCoins,
     path: "/expense",
   },
   {
@@ -34,7 +34,7 @@ export const SIDE_MENU_DATA = [
   {
     id: "06",
     label: "Logout",
-    icon: LuLogOut,
+    icon: LogOut,
     path: "/logout",
   },
 ];

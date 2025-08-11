@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  LuUtensils,
-  LuTrendingDown,
-  LuTrendingUp,
-  LuTrash2,
-} from "react-icons/lu";
+import { Utensils, TrendingDown, TrendingUp, Trash2 } from "lucide-react";
 
 const TransactionCardInfo = ({
   key,
@@ -25,7 +20,7 @@ const TransactionCardInfo = ({
         {icon ? (
           <img src={icon} alt={title} className="w-6 h-6" />
         ) : (
-          <LuUtensils />
+          <Utensils />
         )}
       </div>
 
@@ -41,10 +36,7 @@ const TransactionCardInfo = ({
               className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
               onClick={onDelete}
             >
-              <LuTrash2
-                size={18}
-                className="text-gray-500 hover:text-red-500"
-              />
+              <Trash2 size={18} className="text-gray-500 hover:text-red-500" />
             </button>
           )}
 
@@ -55,7 +47,7 @@ const TransactionCardInfo = ({
               {type === "income" ? "+" : "-"} ${amount}
             </h6>
 
-            {type === "income" ? <LuTrendingUp /> : <LuTrendingDown />}
+            {type === "income" ? <TrendingUp /> : <TrendingDown />}
           </div>
         </div>
       </div>

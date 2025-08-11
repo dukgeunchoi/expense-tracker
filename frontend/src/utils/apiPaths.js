@@ -1,4 +1,5 @@
-export const baseUrl = "https://expense-tracker-backend-o0j5.onrender.com";
+// export const baseUrl = "https://expense-tracker-backend-o0j5.onrender.com";
+export const baseUrl = "http://localhost:3000";
 
 export const API_PATHS = {
   AUTH: {

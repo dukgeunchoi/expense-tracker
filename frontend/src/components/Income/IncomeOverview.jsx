@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LuPlus } from "react-icons/lu";
+import { Plus } from "lucide-react";
 import CustomBarChart from "../Charts/CustomBarChart";
 import { prepareIncomeBarChartData } from "../../utils/helper";
 
@@ -23,7 +23,7 @@ const IncomeOverview = ({ transactions, onAddIncome }) => {
           </p>
         </div>
         <button className="add-btn" onClick={onAddIncome}>
-          <LuPlus className="text-lg" />
+          <Plus className="text-lg" />
           Add Income
         </button>
       </div>

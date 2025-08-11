@@ -1,5 +1,5 @@
 import React from "react";
-import { LuArrowRight } from "react-icons/lu";
+import { ArrowRight } from "lucide-react";
 import moment from "moment";
 import TransactionCardInfo from "../Cards/TransactionCardInfo";
 
@@ -10,7 +10,7 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
         <h5 className="text-lg">Expense Transactions</h5>
 
         <button className="card-button" onClick={onSeeMore}>
-          See All <LuArrowRight className="text-base" />
+          See All <ArrowRight className="text-base" />
         </button>
       </div>
 

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import InfoCard from "../../components/Cards/InfoCard";
-import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
+import { HandCoins, WalletMinimal } from "lucide-react";
 import { IoMdCard } from "react-icons/io";
 import { addThousandSeparator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
@@ -60,13 +60,13 @@ const Home = () => {
             colour="bg-primary"
           />
           <InfoCard
-            icon={<LuHandCoins />}
+            icon={<HandCoins />}
             label="Total Income"
             value={addThousandSeparator(dashboardData?.totalIncome || 0)}
             colour="bg-green-500"
           />
           <InfoCard
-            icon={<LuWalletMinimal />}
+            icon={<WalletMinimal />}
             label="Total Expense"
             value={addThousandSeparator(dashboardData?.totalExpense || 0)}
             colour="bg-red-500"
@@ -95,7 +95,9 @@ const Home = () => {
             data={
               dashboardData?.last60DaysIncomeTransactions?.transactions || []
             }
-            totalIncome={dashboardData?.totalIncome || 0}
+            totalIncome={
+              dashboardData?.last60DaysIncomeTransactions?.total || 0
+            }
           />
 
           <ExpenseTransactions

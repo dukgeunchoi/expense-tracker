@@ -1,6 +1,6 @@
 import React from "react";
 import template from "../../assets/app1.png";
-import { LuTrendingUpDown } from "react-icons/lu";
+import { TrendingUpDown } from "lucide-react";
 const AuthLayout = ({ children }) => {
   return (
     <div className="flex">
@@ -16,7 +16,7 @@ const AuthLayout = ({ children }) => {
 
         <div className="grid grid-cols-1 z-20">
           <StatsInfoCard
-            icon={<LuTrendingUpDown />}
+            icon={<TrendingUpDown />}
             label="Track Your Income & Expenses"
             value="430,000"
             color="bg-primary"
